@@ -7,23 +7,23 @@ database, schema and warehouse creation
 
 
 -- create tasty_bytes database
-CREATE OR ALTER DATABASE {{env}}_tasty_bytes;
+CREATE OR REPLACE DATABASE {{env}}_tasty_bytes;
 
 
 -- create raw_pos schema
-CREATE OR ALTER SCHEMA {{env}}_tasty_bytes.raw_pos;
+CREATE OR REPLACE SCHEMA {{env}}_tasty_bytes.raw_pos;
 
 
 -- create raw_customer schema
-CREATE OR ALTER SCHEMA {{env}}_tasty_bytes.raw_customer;
+CREATE OR REPLACE SCHEMA {{env}}_tasty_bytes.raw_customer;
 
 
 -- create harmonized schema
-CREATE OR ALTER SCHEMA {{env}}_tasty_bytes.harmonized;
+CREATE OR REPLACE SCHEMA {{env}}_tasty_bytes.harmonized;
 
 
 -- create analytics schema
-CREATE OR ALTER SCHEMA {{env}}_tasty_bytes.analytics;
+CREATE OR REPLACE SCHEMA {{env}}_tasty_bytes.analytics;
 
 
 -- create warehouse for ingestion
@@ -40,7 +40,7 @@ file format and stage creation
 --*/
 
 
-CREATE OR ALTER FILE FORMAT {{env}}_tasty_bytes.public.csv_ff
+CREATE OR REPLACE FILE FORMAT {{env}}_tasty_bytes.public.csv_ff
 type = 'csv';
 
 
@@ -73,7 +73,7 @@ CREATE TABLE IF NOT EXISTS {{env}}_tasty_bytes.raw_pos.country
 );
 
 -- franchise table build
-CREATE OR ALTER TABLE {{env}}_tasty_bytes.raw_pos.franchise
+CREATE TABLE IF NOT EXISTS {{env}}_tasty_bytes.raw_pos.franchise
 (
    franchise_id NUMBER(38,0),
    first_name VARCHAR(16777216),
@@ -86,7 +86,7 @@ CREATE OR ALTER TABLE {{env}}_tasty_bytes.raw_pos.franchise
 
 
 -- location table build
-CREATE OR ALTER TABLE {{env}}_tasty_bytes.raw_pos.location
+CREATE TABLE IF NOT EXISTS {{env}}_tasty_bytes.raw_pos.location
 (
    location_id NUMBER(19,0),
    placekey VARCHAR(16777216),
@@ -99,7 +99,7 @@ CREATE OR ALTER TABLE {{env}}_tasty_bytes.raw_pos.location
 
 
 -- menu table build
-CREATE OR ALTER TABLE {{env}}_tasty_bytes.raw_pos.menu
+CREATE TABLE IF NOT EXISTS {{env}}_tasty_bytes.raw_pos.menu
 (
    menu_id NUMBER(19,0),
    menu_type_id NUMBER(38,0),
@@ -116,7 +116,7 @@ CREATE OR ALTER TABLE {{env}}_tasty_bytes.raw_pos.menu
 
 
 -- truck table build
-CREATE OR ALTER TABLE {{env}}_tasty_bytes.raw_pos.truck
+CREATE TABLE IF NOT EXISTS {{env}}_tasty_bytes.raw_pos.truck
 (
    truck_id NUMBER(38,0),
    menu_type_id NUMBER(38,0),
@@ -136,7 +136,7 @@ CREATE OR ALTER TABLE {{env}}_tasty_bytes.raw_pos.truck
 
 
 -- order_header table build
-CREATE OR ALTER TABLE {{env}}_tasty_bytes.raw_pos.order_header
+CREATE TABLE IF NOT EXISTS {{env}}_tasty_bytes.raw_pos.order_header
 (
    order_id NUMBER(38,0),
    truck_id NUMBER(38,0),
@@ -158,7 +158,7 @@ CREATE OR ALTER TABLE {{env}}_tasty_bytes.raw_pos.order_header
 
 
 -- order_detail table build
-CREATE OR ALTER TABLE {{env}}_tasty_bytes.raw_pos.order_detail
+CREATE TABLE IF NOT EXISTS {{env}}_tasty_bytes.raw_pos.order_detail
 (
    order_detail_id NUMBER(38,0),
    order_id NUMBER(38,0),
@@ -173,7 +173,7 @@ CREATE OR ALTER TABLE {{env}}_tasty_bytes.raw_pos.order_detail
 
 
 -- customer loyalty table build
-CREATE OR ALTER TABLE {{env}}_tasty_bytes.raw_customer.customer_loyalty
+CREATE TABLE IF NOT EXISTS {{env}}_tasty_bytes.raw_customer.customer_loyalty
 (
    customer_id NUMBER(38,0),
    first_name VARCHAR(16777216),
