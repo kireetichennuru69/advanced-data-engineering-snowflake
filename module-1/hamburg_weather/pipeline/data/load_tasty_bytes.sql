@@ -61,7 +61,7 @@ raw zone table build
 
 
 
-CREATE OR REPLACE TABLE {{env}}_tasty_bytes.raw_pos.country
+CREATE TABLE IF NOT EXISTS {{env}}_tasty_bytes.raw_pos.country
 (
    country_id NUMBER(18,0),
    country VARCHAR(16777216),
